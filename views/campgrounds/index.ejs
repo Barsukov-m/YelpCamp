@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Campgrounds</title>
+	<%- include("../partials/meta") %>
+
+	<!-- Starability: stars rating -->
+	<link rel="stylesheet" href="/css/starability-basic.min.css">
+
+	<!-- Mapbox -->
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+</head>
+<body>
+	<%- include("../partials/nav") %>
+	<%- include("../partials/flash-float") %>
+
+	<% if (!search) { %>
+		<header class="hero hero--cluster-map">
+			<div id="map"></div>
+		</header>
+	<% } %>
+
+	<main class="main camps bg-grey">
+		<% if (!search) { %>
+		<hr>
+		<% } %>
+		<nav class="camps__nav container d-flex justify-content-between align-items-center mb-3">
+			<p><strong><%= camps.length %></strong> campground<%= camps.length > 1 ? 's' : '' %> found</p>
+			<a class="btn btn-danger" href="/campgrounds/new">Add New Campground</a>
+		</nav>
+		<hr>
+
+		<% if (camps.length == 0) { %>
+		<h2 class="nothing-is-here display-2 text-center">Nothing is here yet ;(</h2>
+		<% } %>
+
+		<div class="container d-flex flex-wrap">
+			<% for (let camp of camps.reverse()) { %>
+			<a class="camps__campground card link-reset" href="/campgrounds/<%= camp._id %>">
+				<img class="camps__img card-img-top" src="<%= camp.images[0] ? camp.images[0].path : '/img/placeholder.jpg' %>" alt="<%= camp.title %>">
+
+				<div class="card-body position-relative">
+					<p class="text-muted"><%= camp.location %></p>
+					<h5 class="card-title"><%= camp.title %></h5>
+					<p class="card-text"><%= camp.description %></p>
+
+					<div class="camps__camp-reviews">
+						<fieldset class="starability-basic">
+							<input disabled type="radio" id="no-camp-<%= camp._id %>-rate" class="input-no-rate" value=0 aria-label="No rating." <%= camp.rating === 0 ? 'checked' : '' %>>
+							<input disabled type="radio" id="camp-<%= camp._id %>-rate1" value="1" <%= camp.rating === 1 ? 'checked' : '' %>>
+							<label for="camp-<%= camp._id %>-rate1" title="Terrible">1 star</label>
+							<input disabled type="radio" id="camp-<%= camp._id %>-rate2" value="2" <%= camp.rating === 2 ? 'checked' : '' %>>
+							<label for="camp-<%= camp._id %>-rate2" title="Not good">2 stars</label>
+							<input disabled type="radio" id="camp-<%= camp._id %>-rate3" value="3" <%= camp.rating === 3 ? 'checked' : '' %>>
+							<label for="camp-<%= camp._id %>-rate3" title="Average">3 stars</label>
+							<input disabled type="radio" id="camp-<%= camp._id %>-rate4" value="4" <%= camp.rating === 4 ? 'checked' : '' %>>
+							<label for="camp-<%= camp._id %>-rate4" title="Very good">4 stars</label>
+							<input disabled type="radio" id="camp-<%= camp._id %>-rate5" value="5" <%= camp.rating === 5 ? 'checked' : '' %>>
+							<label for="camp-<%= camp._id %>-rate5" title="Amazing">5 stars</label>
+						</fieldset>
+
+						<p class="text-end mt-2 me-1"><%= camp.reviews.length %> Reviews</p>
+					</div>
+				</div>
+			</a>
+			<% } %>
+		</div>
+
+		<hr>
+
+		<div class="add-camp">
+			<h2 class="display-6 text-center px-3 pb-5">Do you know a campground that isn&rsquo;t&nbsp;here?</h2>
+			<a class="btn btn-danger px-4" href="/campgrounds/new">Add a campground</a>
+		</div>
+	</main>
+
+	<%- include("../partials/footer") %>
+
+	<script>
+		const mapboxToken = '<%- process.env.MAPBOX_TOKEN %>';
+		const campgrounds = { features: <%- JSON.stringify(camps) %> };
+	</script>
+
+	<script src="/js/clusterMap.js"></script>
+</body>
+</html>

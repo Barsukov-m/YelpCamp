@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign In | YelpCamp</title>
+	<%- include('../partials/meta') %>
+</head>
+<body>
+	<%- include('../partials/nav') %>
+
+	<main class="main main--form row">
+		<div class="col-10 col-md-6 col-xxl-4 offset-1 offset-md-3 offset-xxl-4">
+			<h1 class="text-center mb-3">Welcome Back!</h1>
+			<%- include('../partials/flash') %>
+
+			<form class="form-validation" action="/login" method="POST" novalidate>
+				<div class="mb-3">
+					<label class="form-label" for="username">Email</label>
+					<input id="username" class="form-control" type="email" pattern="[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,4}$" minlength=2 maxlength=254 name="username" required>
+
+					<div class="invalid-feedback">Please enter an email</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="password">Password</label>
+					<input id="password" class="form-control" type="password" minlength=2 maxlength=1000 name="password" required>
+
+					<div class="invalid-feedback">Please enter a password</div>
+				</div>
+
+				<p class="mb-3">Don't have an account? <a class="link" href="/register">Sign Up</a></p>
+
+				<button class="btn btn-danger" type="submit">Sign In</button>
+			</form>
+		</div>
+	</main>
+
+	<%- include('../partials/footer') %>
+
+	<script src="/js/formValidation.js"></script>
+</body>
+</html>

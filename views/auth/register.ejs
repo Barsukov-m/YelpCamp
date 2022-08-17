@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign Up | YelpCamp</title>
+	<%- include('../partials/meta') %>
+</head>
+<body>
+	<%- include('../partials/nav') %>
+
+	<main class="main main--form row">
+		<div class="col-10 col-md-6 col-xxl-4 offset-1 offset-md-3 offset-xxl-4">
+			<h1 class="text-center mb-3">Welcome to YelpCamp!</h1>
+			<%- include('../partials/flash') %>
+
+			<form class="form-validation" action="/register" method="POST" novalidate>
+				<div class="mb-3">
+					<label class="form-label" for="name">Name</label>
+					<input id="name" class="form-control" type="text" minlength=2 maxlength=100 name="name" required>
+
+					<div class="invalid-feedback">Please enter a name</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="username">Email</label>
+					<input id="username" class="form-control" type="email" pattern="[\w\d._%+-]+@[\w\d.-]+\.[\w]{2,4}$" minlength=2 maxlength=254 name="username" required>
+
+					<div class="invalid-feedback">Please enter an email</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="password">Password</label>
+					<input id="password" class="form-control" type="password" minlength=2 maxlength=1000 name="password" required>
+
+					<div class="invalid-feedback">Please enter a password</div>
+				</div>
+
+				<p class="mb-3">Already have an account? <a class="link" href="/login">Sign In</a></p>
+
+				<button class="btn btn-danger" type="submit">Sign Up</button>
+			</form>
+		</div>
+	</main>
+
+	<%- include('../partials/footer') %>
+
+	<script src="/js/formValidation.js"></script>
+</body>
+</html>

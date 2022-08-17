@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Oops...</title>
+	<%- include('./partials/meta') %>
+</head>
+<body>
+	<%- include('./partials/nav') %>
+
+	<header class="hero hero--image">
+		<div class="hero__container container d-flex flex-column align-items-center">
+			<h1 class="display-1 text-white"><%= error.status %></h1>
+			<p class="text-white"><%= error.name %></p>
+			<!-- <p class="text-white"><%= error.message %></p> -->
+		</div>
+	</header>
+</body>
+</html>

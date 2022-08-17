@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><%= camp.title %></title>
+	<%- include('../partials/meta') %>
+
+	<!-- Starability: stars rating -->
+	<link rel="stylesheet" href="/css/starability-basic.min.css">
+
+	<!-- Mapbox -->
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+</head>
+<body>
+	<%- include('../partials/nav') %>
+	<%- include('../partials/flash-float') %>
+
+	<main id="<%= camp._id %>" class="camp">
+		<div class="camp__gallery row mb-4">
+			<div class="col-lg-8 offset-lg-2">
+				<div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+					<% if (camp.images.length > 1) { %>
+						<div class="carousel-indicators">
+							<button type="button" data-bs-target="#carouselControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+							<% for (let i = 1; i < camp.images.length; ++i) { %>
+							<button type="button" data-bs-target="#carouselControls" data-bs-slide-to="<%= i %>" aria-label="Slide <%= i+1 %>"></button>
+							<% } %>
+
+						</div>
+					<% } %>
+
+					<div class="carousel-inner">
+
+						<% if (!camp.images.length) { %>
+							<div class="carousel-item overflow-hidden d-none d-lg-block active">
+								<img src="/img/placeholder.jpg" class="d-block img-cover" alt="<%= camp.title %>">
+							</div>
+						<% } %>
+
+						<% for (i in camp.images) { %>
+							<div class="carousel-item overflow-hidden <%= i == 0 ? 'active' : '' %>">
+								<img src="<%= camp.images[i].path %>" class="d-block img-cover" alt="<%= camp.title %>">
+							</div>
+						<% } %>
+
+					</div>
+
+					<% if (camp.images.length > 1) { %>
+						<button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+
+						<button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					<% } %>
+				</div>
+			</div>
+		</div>
+
+		<div class="row m-3 m-lg-0">
+			<div class="camp__info col-lg-4 offset-lg-2">
+				<h1 class="camp__title"><%= camp.title %></h1>
+
+				<div class="camp__rating d-flex align-items-center mb-3">
+					<fieldset class="starability-basic">
+						<input disabled type="radio" id="no-camp-rate" class="input-no-rate" name="rating" value=0 aria-label="No rating." <%= camp.rating === 0 ? 'checked': '' %>>
+						<input disabled type="radio" id="camp-rate1" name="rating" value="1" <%= camp.rating === 1 ? 'checked': '' %>>
+						<label for="camp-rate1" title="Terrible">1 star</label>
+						<input disabled type="radio" id="camp-rate2" name="rating" value="2" <%= camp.rating === 2 ? 'checked': '' %>>
+						<label for="camp-rate2" title="Not good">2 stars</label>
+						<input disabled type="radio" id="camp-rate3" name="rating" value="3" <%= camp.rating === 3 ? 'checked': '' %>>
+						<label for="camp-rate3" title="Average">3 stars</label>
+						<input disabled type="radio" id="camp-rate4" name="rating" value="4" <%= camp.rating === 4 ? 'checked': '' %>>
+						<label for="camp-rate4" title="Very good">4 stars</label>
+						<input disabled type="radio" id="camp-rate5" name="rating" value="5" <%= camp.rating === 5 ? 'checked': '' %>>
+						<label for="camp-rate5" title="Amazing">5 stars</label>
+					</fieldset>
+
+					<a class="ms-2 mt-1" href="#reviews"><%= camp.reviews.length %> Review<%= (camp.reviews.length != 1) ? 's' : '' %></a>
+				</div>
+
+				<p class="camp__author">Submitted by <%= camp.author.name %> <span>2 days ago</span></p>
+
+				<% if (currentUser && camp.author.equals(currentUser)) { %>
+				<div class="camp__edit-btns mt-4">
+					<a class="btn btn-outline-secondary" href="/campgrounds/<%= camp._id %>/edit">Edit</a>
+
+					<button class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#campDeleteModal-<%= camp._id %>">Delete the camp</button>
+				</div>
+				<% } %>
+
+				<!-- Modal -->
+				<div class="modal fade" id="campDeleteModal-<%= camp._id %>" tabindex="-1" aria-labelledby="campDeleteModalLbl-<%= camp._id %>" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="campDeleteModalLbl-<%= camp._id %>">Delete the Campground</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+
+								<div class="modal-body">
+									Do you really want to delete this campground?
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+									<form action="/campgrounds/<%= camp._id %>?_method=DELETE" method="POST">
+										<button type="submit" class="btn btn-danger">Delete</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				<hr>
+
+				<h2 class="mb-3">About this campground</h2>
+				<p class="mb-4 mb-lg-0"><%= camp.description %></p>
+			</div>
+
+			<div class="camp__side col-lg-4">
+				<div class="camp__price-wrapper mb-3">
+					<p><%= camp.location %></p>
+					<p class="camp__price"><strong>$<%= camp.price %></strong> / night</p>
+				</div>
+				<hr class="d-lg-none">
+
+				<% if (currentUser) { %>
+				<form class="form-validation" action="/campgrounds/<%= camp._id %>/reviews" method="POST" novalidate>
+					<h3 class="mb-2">Add a Review</h3>
+
+					<div class="mb-3">
+						<label for="reviewTitle">Title:</label>
+						<input id="reviewTitle" class="form-control" type="text" placeholder="Describe this campground in a few words" minlength=2 maxlength=100 name="title" required>
+
+						<div class="invalid-feedback">Title must be at least 2 characters long.</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="reviewRating">Rating:</label>
+
+						<fieldset class="starability-basic">
+							<input type="radio" id="no-review-rate" class="input-no-rate" name="rating" value=0 aria-label="No rating." checked>
+							<input type="radio" id="review-rate1" name="rating" value="1">
+							<label for="review-rate1" title="Terrible">1 star</label>
+							<input type="radio" id="review-rate2" name="rating" value="2">
+							<label for="review-rate2" title="Not good">2 stars</label>
+							<input type="radio" id="review-rate3" name="rating" value="3">
+							<label for="review-rate3" title="Average">3 stars</label>
+							<input type="radio" id="review-rate4" name="rating" value="4">
+							<label for="review-rate4" title="Very good">4 stars</label>
+							<input type="radio" id="review-rate5" name="rating" value="5">
+							<label for="review-rate5" title="Amazing">5 stars</label>
+						</fieldset>
+
+						<div class="invalid-feedback">Rate the campground from 1 to 5</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="reviewBody">Review:</label>
+						<textarea id="reviewBody" class="form-control" placeholder="Say something about this campground" minlength=3 maxlength=1000 rows=4 wrap="hard" name="body" required></textarea>
+
+						<div class="invalid-feedback">Your review is too short.</div>
+					</div>
+
+					<button class="btn btn-danger" type="submit">Submit</button>
+				</form>
+				<% } else { %>
+				<a class="btn btn-danger" href="/login">Add a Review</a>
+				<% } %>
+
+			</div>
+		</div>
+
+		<div class="row m-3 m-lg-0">
+			<div id="reviews" class="reviews col-lg-8 offset-lg-2">
+				<hr>
+				<h2>Reviews</h2>
+				<p><strong><%= camp.reviews.length %> Review<%= (camp.reviews.length != 1) ? 's' : '' %></strong> of <%= camp.title %></p>
+				<hr>
+
+				<% for (review of camp.reviews) { %>
+				<div id="review-<%= review._id %>" class="reviews__review row">
+					<!-- Review user -->
+					<div class="reviews__user col-12 col-md-4 col-xl-3 col-xxl-2">
+						<div class="d-flex align-items-center mb-3 mb-lg-0">
+							<h6 class="reviews__user-img me-1">
+								<%= review.author.name[0] %>
+							</h6>
+
+							<p class="reviews__user-name ms-2"><%= review.author.name %></p>
+						</div>
+					</div>
+
+					<!-- Review content -->
+					<div class="col-12 col-md">
+						<!-- Review update form -->
+						<form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=PATCH" method="POST">
+							<div class="reviews__review-content">
+								<div class="reviews__rating d-flex align-items-center mb-2">
+									<fieldset class="starability-basic">
+										<input disabled type="radio" id="no-review-<%= review._id %>rate" class="input-no-rate" name="rating" value=0 aria-label="No rating." <%= review.rating === 0 ? 'checked' : '' %>>
+										<input disabled type="radio" id="review-<%= review._id %>-rate1" name="rating" value="1" <%= review.rating === 1 ? 'checked' : '' %>>
+										<label disabled for="review-<%= review._id %>-rate1" title="Terrible">1 star</label>
+										<input disabled type="radio" id="review-<%= review._id %>-rate2" name="rating" value="2" <%= review.rating === 2 ? 'checked' : '' %>>
+										<label disabled for="review-<%= review._id %>-rate2" title="Not good">2 stars</label>
+										<input disabled type="radio" id="review-<%= review._id %>-rate3" name="rating" value="3" <%= review.rating === 3 ? 'checked' : '' %>>
+										<label disabled for="review-<%= review._id %>-rate3" title="Average">3 stars</label>
+										<input disabled type="radio" id="review-<%= review._id %>-rate4" name="rating" value="4" <%= review.rating === 4 ? 'checked' : '' %>>
+										<label disabled for="review-<%= review._id %>-rate4" title="Very good">4 stars</label>
+										<input disabled type="radio" id="review-<%= review._id %>-rate5" name="rating" value="5" <%= review.rating === 5 ? 'checked' : '' %>>
+										<label disabled for="review-<%= review._id %>-rate5" title="Amazing">5 stars</label>
+									</fieldset>
+
+									<p class="text-black-50 ms-2 mt-1">Reviewed Jul. 20, 2022</p>
+								</div>
+
+								<div class="reviews__body mb-3">
+									<h5 class="reviews__review-title mb-2"><%= review.title %></h5>
+									<p class="reviews__review-text"><%= review.body %></p>
+								</div>
+
+								<% if (currentUser && review.author.equals(currentUser)) { %>
+								<div class="btn-group">
+									<button class="reviews__editBtn btn btn-sm btn-outline-secondary" type="button">Edit</button>
+									<button class="reviews__deleteBtn btn btn-sm btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#reviewDeleteModal-<%= review._id %>">Delete</button>
+								</div>
+								<% } %>
+							</div>
+						</form>
+					</div>
+				</div>
+
+					<!-- Modal -->
+					<div class="modal fade" id="reviewDeleteModal-<%= review._id %>" tabindex="-1" aria-labelledby="reviewDeleteModalLbl-<%= review._id %>" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="reviewDeleteModalLbl-<%= review._id %>">Delete review</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									Do you really want to delete your review?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+									<form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+										<button type="submit" class="btn btn-danger">Delete</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<hr>
+					<% } %>
+			</div>
+		</div>
+
+		<div class="row m-3 m-lg-0 mb-lg-4">
+			<div id="reviews" class="reviews col-lg-8 offset-lg-2">
+				<h2 class="mb-3">Location</h2>
+
+				<!-- Mapbox -->
+				<div id="map" class="camp__map"></div>
+				<hr>
+			</div>
+		</div>
+	</main>
+
+	<%- include('../partials/footer') %>
+
+	<script src="/js/formValidation.js"></script>
+	<script src="/js/reviews.js"></script>
+
+	<script>
+		const mapboxToken = '<%- process.env.MAPBOX_TOKEN %>';
+		const camp = <%- JSON.stringify(camp) %>;
+	</script>
+
+	<script src="/js/showMap.js"></script>
+
+</body>
+</html>

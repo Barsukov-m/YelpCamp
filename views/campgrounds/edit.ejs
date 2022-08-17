@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title><%= camp.title %> (editing)</title>
+	<%- include('../partials/meta') %>
+</head>
+<body>
+	<%- include('../partials/nav') %>
+
+	<main class="main main--form row">
+		<div class="col-10 col-md-6 col-xxl-4 offset-1 offset-md-3 offset-xxl-4">
+			<h1 class="text-center mb-3">Update Campground</h1>
+			<%- include('../partials/flash') %>
+
+			<form class="form-validation" action="/campgrounds/<%= camp._id %>?_method=PUT" method="POST" enctype="multipart/form-data" novalidate>
+				<div class="mb-3">
+					<label class="form-label" for="campTitle">Title</label>
+					<input id="campTitle" class="form-control" type="text" name="title" minlength=2 maxlength=100 placeholder="Campground name" value="<%= camp.title %>" required>
+
+					<div class="invalid-feedback">Please enter the title for your campground.</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="campLocation">Location</label>
+					<input id="campLocation" class="form-control" type="text" name="location" minlength=2 maxlength=100 placeholder="City/town" minlength=2 maxlength=100 value="<%= camp.location %>" required>
+
+					<div class="invalid-feedback">Please enter the city or town where the campground is located.</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="campPrice">Price (per night)</label>
+
+					<div class="input-group">
+						<p class="input-group-text">$</p>
+						<input id="campPrice" class="form-control" type="text" name="price" min=0 max=100000 placeholder="0.00" pattern="\d+\.?\d*" value="<%= camp.price %>" required>
+
+						<div class="invalid-feedback">Please enter the campground price (per night).</div>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="campImage">Image File(s)</label>
+					<input id="campImage" class="form-control" type="file" name="images" multiple>
+				</div>
+
+				<div class="mb-4">
+					<label class="form-label" for="campDesc">Description</label>
+					<textarea id="campDesc" class="form-control" name="description" rows=5 minlength=3 maxlength="1000" wrap="hard" placeholder="Say something about your campground" required><%= camp.description %></textarea>
+
+					<div class="valid-feedback">Looks good!</div>
+					<div class="invalid-feedback">Please enter the description for your campground.</div>
+				</div>
+
+				<button class="btn btn-secondary" type="submit">Update Campground</button>
+			</form>
+		</div>
+	</main>
+
+	<%- include('../partials/footer') %>
+
+	<script src="/js/formValidation.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<%- include("./partials/meta") %>
+
+	<!-- Starability: stars rating -->
+	<link rel="stylesheet" href="/css/starability-basic.min.css">
+</head>
+<body>
+	<%- include("./partials/nav") %>
+	<%- include("./partials/flash-float") %>
+
+	<header class="hero hero--home hero--image">
+		<div class="container d-flex flex-column align-items-center">
+			<h1 class="display-1 mb-4 text-center text-white">Let&rsquo;s go camping</h1>
+
+			<div class="search">
+				<form action="/campgrounds" method="GET">
+					<div class="input-group mb-3">
+						<span class="input-group-text bg-white border-end-0 ps-3 pe-2" id="basic-addon1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+							</svg>
+						</span>
+						<input id="searchWidget" class="form-control border-start-0" type="text" name="search" placeholder="Search for a Campground" autocomplete="off" aria-label="Username" aria-describedby="basic-addon1">
+
+						<button type="submit" class="btn btn-danger">Search</button>
+					</div>
+				</form>
+
+				<div class="search__results d-none shadow-lg">
+				</div>
+			</div>
+
+			<div class="hero__scroll">
+				<div class="hero__scroll-mouse"></div>
+			</div>
+		</div>
+
+		<div class="hero__stats justify-content-center shadow-sm">
+			<div class="hero__stats-item">
+				<img class="ps-4 pe-2" src="https://img.icons8.com/carbon-copy/100/000000/campfire.png"/>
+
+				<div class="hero__stats-info">
+					<p class="hero__stats-heading"><%= Math.floor(campgrounds.length / 10)*10 %>+</p>
+					<p>Campgrounds</p>
+				</div>
+			</div>
+
+			<div class="hero__stats-item">
+				<img class="ps-4 px-2" src="https://img.icons8.com/carbon-copy/100/000000/worldwide-location.png"/>
+				<div class="hero__stats-info">
+					<p class="hero__stats-heading">
+						<%= campgrounds && (new Set(campgrounds.map(camp => camp.location))).size %>
+					</p>
+					<p>Cities</p>
+				</div>
+			</div>
+
+			<div class="hero__stats-item">
+				<img class="ps-4 px-2" src="https://img.icons8.com/carbon-copy/100/000000/tourist-backpack.png"/>
+
+				<div class="hero__stats-info">
+					<p class="hero__stats-heading">Countless</p>
+					<p>Happy campers</p>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<main class="main bg-grey">
+		<section class="main__whoami">
+			<div class="container text-center">
+				<h2 class="main__heading">Whoami</h2>
+				<h3 class="main__heading-sub mb-4">Hi, I&rsquo;m Michael.</h3>
+
+				<p>I&rsquo;m a computer-science student based in&nbsp;Kyiv. I&nbsp;like to create meaningful websites since Jul&nbsp;2021.</p>
+			</div>
+		</section>
+
+		<section class="main__about main--dark">
+			<div class="container">
+				<h2 class="main__heading">About</h2>
+				<h3 class="main__heading-sub mb-4">YelpCamp</h3>
+
+				<p>YelpCamp is the campground database created to connect people around the world.</p>
+				<p>This is my pet-project as a part of “The Web Developer Bootcamp 2022” by Colt Steele.</p>
+				<p>I&rsquo;ve brought it to life in 21 days from scratch, while still discovering server-side programming.</p>
+				<p>Honestly, YelpCamp was a fun and rewarding experience. I can&rsquo;t wait to be a part of a massive project like this one.</p>
+			</div>
+		</section>
+
+		<section class="main__technologies row container mx-auto">
+			<div class="col-12 col-xl-7">
+				<h2 class="main__heading">Technologies</h2>
+				<h3 class="main__heading-sub mb-4">Used</h3>
+
+				<ul>
+					<li>Server: <strong><a href="https://expressjs.com/">Express.js</a></strong></li>
+					<li>Runtime environment: <strong><a href="https://nodejs.org/en/">Node.js</a></strong></li>
+					<li>Database: <strong><a href="https://www.mongodb.com/">MongoDB</a></strong></li>
+					<li>ODM: <strong><a href="https://mongoosejs.com/">Mongoose</a></strong></li>
+					<li>Template engine: <strong><a href="https://ejs.co/">EJS</a></strong></li>
+					<li>CSS framework: <strong><a href="https://getbootstrap.com/">Bootstrap 5</a></strong></li>
+					<li>CSS extension: <strong><a href="https://sass-lang.com/">Sass</a></strong></li>
+					<li>Data validation: <strong><a href="https://joi.dev/">joi</a></strong></li>
+					<li>Authentication: <strong><a href="https://www.passportjs.org/">passport</a></strong></li>
+					<li>Testing: <strong><a href="https://www.postman.com/">Postman</a></strong></li>
+				</ul>
+			</div>
+
+			<div class="col-12 col-xl-5">
+				<h2 class="main__heading">What&rsquo;s</h2>
+				<h3 class="main__heading-sub mb-4">Missing?</h3>
+
+				<ul>
+					<li><strong><a href="https://redis.io/">Redis</a></strong> is a popular option for fast caching, which also could&rsquo;ve been used in YelpCamp</li>
+					<li>Some JavaScript frameworks would have provided a more AJAX feel on the client-side (<strong><a href="https://reactjs.org/">React</a></strong>, <strong><a href="https://vuejs.org/">Vue.js</a></strong>, <strong><a href="https://angular.io/">Angular</a></strong>&nbsp;etc.)</li>
+					<li>User profile: email sign-up, ability to change a user&rsquo;s password, and the password recovery option</li>
+					<li>Website translation to different languages</li>
+					<li>Night mode</li>
+					<li><strong><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA">ARIA</a></strong> accessibility</li>
+				</ul>
+			</div>
+		</section>
+	</main>
+
+	<%- include("./partials/footer") %>
+	<script src="/js/searchWidget.js" async></script>
+</body>
+</html>

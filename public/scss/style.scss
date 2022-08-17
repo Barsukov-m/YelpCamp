@@ -1,0 +1,709 @@
+@import './reset';
+@import '/css/fonts.css';
+
+// Variables
+$accent:          #DC3545;
+$bg-dark:          #263238;
+$bg-grey:          #FAFAFA;
+$card-heading:    26px;
+$corners:         .4rem;
+$disabled:        #0000008c;
+$footer-link:      #AAAAAA;
+$nav-height:       86px;
+$section-spacing:  100px;
+$text-color:       #343434;
+$text-dark:        $bg-grey;
+
+$font-weights: (
+	"regular": 400,
+	"semiBold": 600,
+	"bold": 700,
+	"extraBold": 800
+);
+
+
+// Mixins
+@mixin flexCenter($direction: initial) {
+	align-items: center;
+	display: flex;
+	flex-direction: $direction;
+	justify-content: center;
+}
+
+@mixin breakpoint($point) {
+	@if $point == sm {
+		@media only screen and (min-width: 576px) {
+			@content;
+		}
+	}
+	@else if $point == md {
+		@media only screen and (min-width: 768px) {
+			@content;
+		}
+	}
+	@else if $point == lg {
+		@media only screen and (min-width: 992px) {
+			@content;
+		}
+	}
+	@else if $point == xl {
+		@media only screen and (min-width: 1200px) {
+			@content;
+		}
+	}
+	@else if $point == xxl {
+		@media only screen and (min-width: 1400px) {
+			@content;
+		}
+	}
+}
+
+
+// Functions
+@function fw($weight) {
+	@return map-get($font-weights, $weight);
+}
+
+
+// push footer to the bottom of the page
+html, body {
+	color: $text-color;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Open Sans', sans-serif;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Work Sans', sans-serif;
+	font-weight: fw(semiBold);
+}
+
+textarea {
+	max-height: 250px;
+}
+
+a {
+	color: $accent;
+	text-decoration: none;
+
+	&:hover {
+		color: darken($accent, 10%);
+	}
+}
+
+.link-reset {
+	color: $text-color;
+
+	&:hover {
+		color: inherit;
+	}
+}
+
+hr {
+	background-color: $disabled;
+	margin: 2rem 0;
+}
+
+.btn {
+	border-radius: $corners;
+	font-weight: fw(semiBold);
+	line-height: 30px;
+	min-width: 100px;
+	padding: 9px 15px;
+	text-transform: uppercase;
+}
+
+.btn-sm {
+	line-height: initial;
+}
+
+// alert close button
+.btn-close {
+	position: absolute;
+	right: 1em;
+}
+
+.flash-alert--float {
+	bottom: 1em;
+	position: fixed;
+	right: 1em;
+	width: calc(100% - 4em);
+	z-index: 1000;
+
+	@include breakpoint(lg) {
+		width: 50%;
+	}
+
+	@include breakpoint(xl) {
+		width: 25%;
+	}
+}
+
+// card corners
+.card {
+	border-radius: $corners;
+
+	#{&}-img-top {
+		border-top-left-radius: $corners;
+		border-top-right-radius: $corners;
+	}
+}
+
+.img-cover {
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+// form input corners
+.form-control {
+	border-radius: $corners;
+}
+
+// input group corners
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3),
+.input-group:not(.has-validation) >
+:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+	border-bottom-left-radius: $corners;
+	border-top-left-radius: $corners;
+}
+
+.bg-grey {
+	background: $bg-grey;
+}
+
+.bg-white {
+	background: #FFFFFF;
+}
+
+.starability-basic {
+	min-height: initial !important;
+	user-select: none;
+}
+
+
+/* ========= NAVIGATION ========= */
+
+.main-nav {
+	padding: 0 1em;
+
+	.btn {
+		@include breakpoint(lg) {
+			margin: 0 0 0 1em;
+		}
+
+		margin: 1em 0;
+	}
+
+	.navbar-nav {
+		margin-bottom: 1em;
+
+		@include breakpoint(lg) {
+			margin-bottom: 0;
+		}
+	}
+
+	.navbar-brand {
+		line-height: $nav-height;
+		padding: 0;
+	}
+
+	.navbar-collapse {
+		justify-content: end;
+	}
+}
+
+
+/* ============ HERO ============ */
+
+.hero {
+	@include flexCenter();
+
+	min-height: calc(100vh - $nav-height);
+	position: relative;
+
+	&--home {
+		min-height: 100vh;
+
+		@include breakpoint(md) {
+			min-height: calc(100vh + 70px);
+		}
+	}
+
+	&--image {
+		background: linear-gradient(#0004, #0004), center / cover no-repeat url('/img/home-cover.jpg');
+	}
+
+	&--cluster-map {
+		min-height: calc(70vh - $nav-height);
+
+		#map {
+			height: 100%;
+			width: 100%;
+		}
+	}
+
+	h1 {
+		font-weight: fw(semiBold);
+	}
+
+	&__stats {
+		background: #FFFFFF;
+		bottom: calc(-140px / 2);
+		display: none;
+		height: 140px;
+		overflow: hidden;
+		padding: 0 1rem;
+		position: absolute;
+
+		@include breakpoint(md) {
+			display: flex;
+			width: 100%;
+		}
+
+		@include breakpoint(lg) {
+			border-radius: $corners;
+			width: auto;
+		}
+
+		h6 {
+			font-size: 18px;
+		}
+	}
+
+	&__stats-item {
+		align-items: center;
+		display: flex;
+
+		img {
+			height: 60%;
+		}
+	}
+
+	&__stats-info {
+		width: 140px;
+	}
+
+	&__stats-heading {
+		font-size: 1.2em;
+		font-weight: fw(semiBold);
+	}
+}
+
+
+/* ============ HOME ============ */
+
+.navbar-home {
+	position: absolute;
+	width: 100%;
+	z-index: 100;
+}
+
+.hero__scroll {
+	display: none;
+  width: 300px;
+	position: relative;
+	top: 20vh;
+
+	@include breakpoint(lg) {
+		@include flexCenter();
+	}
+
+	#{&}-mouse {
+		width: 40px;
+		height: 70px;
+		border: 2px solid #FFF3;
+		border-radius: 40px;
+		position: absolute;
+		&::before {
+			content: '';
+			width: 8px;
+			height: 8px;
+			position: absolute;
+			top: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+			background-color: #FFF3;
+			border-radius: 50%;
+			opacity: 1;
+			animation: wheel 2s infinite;
+			-webkit-animation: wheel 2s infinite;
+		}
+	}
+}
+
+@keyframes wheel {
+	to {
+		opacity: 0;
+		top: 60px;
+	}
+}
+
+@-webkit-keyframes wheel {
+	to {
+		opacity: 0;
+		top: 60px;
+	}
+}
+
+.main {
+	padding-top: calc($section-spacing - 50px);
+
+	@include breakpoint(lg) {
+		padding-top: $section-spacing;
+	}
+
+	& section {
+		padding: 5rem 2rem;
+
+		@include breakpoint(md) {
+			padding: 5rem;
+		}
+
+		@include breakpoint(xl) {
+			padding: 5rem 5rem 10rem;
+		}
+
+		p, li {
+			font-size: 1.2rem;
+			margin-bottom: .6em;
+
+			@include breakpoint(md) {
+				font-size: 1rem;
+			}
+		}
+	}
+
+	&__heading {
+		bottom: -35px;
+		font-size: 3.5rem;
+		font-weight: fw(extraBold);
+		margin-top: 3rem;
+		opacity: .1;
+		position: relative;
+		user-select: none;
+		word-wrap: normal;
+
+		@include breakpoint(md) {
+			font-size: 5rem;
+		}
+	}
+
+	&__heading-sub {
+		font-size: 2.2em;
+	}
+
+	&--form {
+		height: auto;
+		margin-bottom: $section-spacing;
+
+		@include breakpoint(lg) {
+			min-height: calc(100vh - $nav-height);
+		}
+	}
+
+	&--dark {
+		color: $text-dark;
+
+		.main__heading {
+			opacity: .3;
+		}
+	}
+
+	#{&}__whoami {
+		padding-bottom: 10rem;
+	}
+
+	#{&}__about {
+		background: linear-gradient(#00000080, #00000080), top/cover no-repeat url("/img/about.jpg");
+
+		@include breakpoint(xl) {
+			width: 80%;
+			border-radius: 0 50px 50px 0;
+		}
+	}
+}
+
+/* =========== SEARCH =========== */
+
+.search {
+	position: relative;
+	width: 80%;
+
+	@include breakpoint(md) {
+		width: 60%;
+	}
+
+	@include breakpoint(lg) {
+		width: 50%;
+	}
+
+	@include breakpoint(xl) {
+		width: 40%;
+	}
+
+	&__results {
+		background: #FFF;
+		border-radius: $corners;
+		max-height: calc((150px * 2) + .5rem + 2rem);
+		overflow: auto;
+		position: absolute;
+		width: 100%;
+		z-index: 100;
+	}
+
+	.card-title {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
+	}
+
+	&__camp {
+		height: 150px;
+	}
+
+	input {
+		text-overflow: ellipsis;
+	}
+}
+
+
+/* ========= CAMPGROUNDS ======== */
+
+.camps {
+	padding-top: 2rem;
+
+	&__nav {
+		flex-direction: column;
+
+		p {
+			font-size: 1.25rem;
+			margin-bottom: 1rem;
+		}
+
+		@include breakpoint(lg) {
+			flex-direction: row;
+
+			p {
+				margin: 0 0 0 1rem;
+			}
+
+			a {
+				margin-right: 0 1rem 0 0;
+			}
+		}
+	}
+
+	&__campground {
+		margin: 20px 10px;
+		width: calc(100% - 20px);
+
+		@include breakpoint(lg) {
+			width: calc(50% - 20px);
+			-webkit-transition: box-shadow .1s ease-in;
+				 -moz-transition: box-shadow .1s ease-in;
+					 -o-transition: box-shadow .1s ease-in;
+							transition: box-shadow .1s ease-in;
+
+			.card-body {
+				padding: 2rem;
+			}
+		}
+
+		.card-title {
+			font-size: $card-heading;
+		}
+
+		.card-text {
+			margin-bottom: 20px;
+		}
+
+		&:hover {
+			box-shadow: 0 0 10px #0002;
+		}
+	}
+
+	&__camp-reviews {
+		position: absolute;
+		right: 1em;
+		top: 1em;
+
+		@include breakpoint(lg) {
+			top: 2em;
+			right: 2em;
+		}
+	}
+
+	&__img {
+		height: 300px;
+		object-fit: cover;
+
+		@include breakpoint(lg) {
+			height: 400px;
+		}
+	}
+
+	.nothing-is-here {
+		line-height: calc(100vh - $nav-height - $section-spacing);
+		margin-bottom: $section-spacing;
+	}
+}
+
+.add-camp {
+	@include flexCenter(column);
+
+	background: linear-gradient(#0000004d, #0000004d), center/cover no-repeat url("/img/add-camp.jpg");
+	color: #FFFFFF;
+	margin-top: $section-spacing;
+	min-height: 75vh;
+
+	h2 {
+		font-weight: fw(bold);
+	}
+}
+
+/* ======= CAMPGROUND PAGE ====== */
+
+.camp {
+	h2 {
+		margin-top: 1rem;
+	}
+
+	&__gallery {
+		.carousel, img {
+			overflow: hidden;
+
+			@include breakpoint(lg) {
+				border-radius: $corners;
+			}
+
+			.carousel-item {
+				height: 50vh;
+			}
+		}
+	}
+
+	&__map {
+		border-radius: $corners;
+		height: 50vh;
+		width: 100%;
+	}
+
+	&__price-wrapper {
+		border-radius: $corners;
+		box-shadow: 0 0 10px #0002;
+		padding: 2rem;
+	}
+
+	&__price {
+		font-size: 1.25rem;
+	}
+
+	&__rating *, &__edit-btns > * {
+		display: inline-block;
+	}
+
+	&__edit-btns > * {
+		margin-right: 8px;
+	}
+}
+
+/* =========== MAPBOX =========== */
+
+.mapboxgl-popup {
+	max-width: initial !important;
+}
+
+.mapboxgl-popup-content {
+	border-radius: $corners;
+	font-family: 'Open Sans', sans-serif;
+	height: 150px;
+	padding: 0 !important;
+	width: 400px;
+
+	h5 {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		width: 100%;
+	}
+
+	.camp__price {
+		font-size: 1.1rem;
+	}
+}
+
+.thumbnail__img-wrapper {
+	border-radius: 0 $corners $corners 0;
+}
+
+/* =========== REVIEWS ========== */
+
+.reviews {
+	&__user > *, &__rating > * {
+		display: inline-block;
+	}
+
+	&__user {
+		font-weight: fw(semiBold);
+	}
+
+	&__user-img {
+		background: $accent;
+		border-radius: 50%;
+		color: #FFFFFF;
+		font-size: 1.2em;
+		height: 50px;
+		line-height: 50px;
+		min-width: 50px;
+		text-align: center;
+	}
+
+	&__rating p {
+		font-size: .8em;
+	}
+
+	&__review .btn-close {
+		position: absolute;
+		right: 1em;
+	}
+}
+
+
+/* =========== FOOTER =========== */
+
+.footer {
+	color: $text-dark;
+
+	&__links {
+		background: $bg-dark;
+		padding: 3rem 0 4rem;
+
+		& > .container {
+			@include flexCenter(column);
+		}
+
+		h5 {
+			margin-bottom: .5em;
+		}
+
+		a {
+			color: $footer-link;
+
+			&:hover {
+				color: lighten($footer-link, 10%);
+			}
+		}
+
+		@include breakpoint(lg) {
+			flex-direction: row;
+		}
+	}
+
+	&__copy {
+		background: lighten($bg-dark, 5%);
+		line-height: $nav-height;
+	}
+}
