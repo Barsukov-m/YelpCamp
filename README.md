@@ -1,7 +1,9 @@
 # YelpCamp
-![YelpCamp](preview.jpg)
+[![YelpCamp](preview.jpg)](https://barsukov-m-yelpcamp.herokuapp.com/)
 
 YelpCamp is the campground database created to connect people around the world.
+
+> __NOTE:__ Click on the image to see it in action!
 
 ## Technologies used
 - __Node.js__ (JavaScipript runtime environment)
