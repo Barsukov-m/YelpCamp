@@ -21,12 +21,11 @@ YelpCamp is the campground database created to connect people around the world.
 ## TODO
 - [x] SEO optimization
 - [x] Refactoring
-- [ ] Fix the timestamps on reviews & camps
-- [ ] Limit the campground description height to 4 rows on Campgrounds page.
-- [ ] Fix the layout overflow on small screens.
-- [ ] Add a 'See all campgrounds' button or something...
-- [ ] Vulnerability testing
+- [x] Limit the campground description height to 4 rows on Campgrounds page.
+- [x] Fix the layout overflow on small screens.
+- [x] Vulnerability testing
 - [ ] Improved star rating
+- [ ] Fix the timestamps on reviews & camps
 - [ ] Image thumbnails
 - [ ] Night mode
 - [ ] Ukrainian translation
