@@ -3,7 +3,13 @@
   word-wrap: break-word;
 }
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
   padding: 0;
 }
@@ -13,13 +19,15 @@ a {
   text-direction: none;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   color: #343434;
   display: flex;
   flex-direction: column;
@@ -27,7 +35,12 @@ html, body {
   height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Work Sans", sans-serif;
   font-weight: 600;
 }
@@ -37,7 +50,7 @@ textarea {
 }
 
 a {
-  color: #DC3545;
+  color: #dc3545;
   text-decoration: none;
 }
 a:hover {
@@ -117,11 +130,11 @@ hr {
 }
 
 .bg-grey {
-  background: #FAFAFA;
+  background: #fafafa;
 }
 
 .bg-white {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 .starability-basic {
@@ -188,7 +201,7 @@ hr {
   font-weight: 600;
 }
 .hero__stats {
-  background: #FFFFFF;
+  background: #ffffff;
   bottom: -70px;
   display: none;
   height: 140px;
@@ -302,12 +315,14 @@ hr {
     padding: 5rem 5rem 10rem;
   }
 }
-.main section p, .main section li {
+.main section p,
+.main section li {
   font-size: 1.2rem;
   margin-bottom: 0.6em;
 }
 @media only screen and (min-width: 768px) {
-  .main section p, .main section li {
+  .main section p,
+.main section li {
     font-size: 1rem;
   }
 }
@@ -339,7 +354,7 @@ hr {
   }
 }
 .main--dark {
-  color: #FAFAFA;
+  color: #fafafa;
 }
 .main--dark .main__heading {
   opacity: 0.3;
@@ -378,7 +393,7 @@ hr {
   }
 }
 .search__results {
-  background: #FFF;
+  background: #fff;
   border-radius: 0.4rem;
   max-height: calc(300px + 0.5rem + 2rem);
   overflow: auto;
@@ -441,6 +456,9 @@ hr {
   font-size: 26px;
 }
 .camps__campground .card-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 4.6em;
   margin-bottom: 20px;
 }
 .camps__campground:hover {
@@ -477,7 +495,7 @@ hr {
   flex-direction: column;
   justify-content: center;
   background: linear-gradient(rgba(0, 0, 0, 0.3019607843), rgba(0, 0, 0, 0.3019607843)), center/cover no-repeat url("/img/add-camp.jpg");
-  color: #FFFFFF;
+  color: #ffffff;
   margin-top: 100px;
   min-height: 75vh;
 }
@@ -489,15 +507,18 @@ hr {
 .camp h2 {
   margin-top: 1rem;
 }
-.camp__gallery .carousel, .camp__gallery img {
+.camp__gallery .carousel,
+.camp__gallery img {
   overflow: hidden;
 }
 @media only screen and (min-width: 992px) {
-  .camp__gallery .carousel, .camp__gallery img {
+  .camp__gallery .carousel,
+.camp__gallery img {
     border-radius: 0.4rem;
   }
 }
-.camp__gallery .carousel .carousel-item, .camp__gallery img .carousel-item {
+.camp__gallery .carousel .carousel-item,
+.camp__gallery img .carousel-item {
   height: 50vh;
 }
 .camp__map {
@@ -554,9 +575,9 @@ hr {
   font-weight: 600;
 }
 .reviews__user-img {
-  background: #DC3545;
+  background: #dc3545;
   border-radius: 50%;
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1.2em;
   height: 50px;
   line-height: 50px;
@@ -573,7 +594,7 @@ hr {
 
 /* =========== FOOTER =========== */
 .footer {
-  color: #FAFAFA;
+  color: #fafafa;
 }
 .footer__links {
   background: #263238;
@@ -589,7 +610,7 @@ hr {
   margin-bottom: 0.5em;
 }
 .footer__links a {
-  color: #AAAAAA;
+  color: #aaaaaa;
 }
 .footer__links a:hover {
   color: #c4c4c4;

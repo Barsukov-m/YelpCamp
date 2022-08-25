@@ -2,25 +2,24 @@
 @import '/css/fonts.css';
 
 // Variables
-$accent:          #DC3545;
-$bg-dark:          #263238;
-$bg-grey:          #FAFAFA;
-$card-heading:    26px;
-$corners:         .4rem;
-$disabled:        #0000008c;
-$footer-link:      #AAAAAA;
-$nav-height:       86px;
-$section-spacing:  100px;
-$text-color:       #343434;
-$text-dark:        $bg-grey;
+$accent: #dc3545;
+$bg-dark: #263238;
+$bg-grey: #fafafa;
+$card-heading: 26px;
+$corners: 0.4rem;
+$disabled: #0000008c;
+$footer-link: #aaaaaa;
+$nav-height: 86px;
+$section-spacing: 100px;
+$text-color: #343434;
+$text-dark: $bg-grey;
 
 $font-weights: (
-	"regular": 400,
-	"semiBold": 600,
-	"bold": 700,
-	"extraBold": 800
+	'regular': 400,
+	'semiBold': 600,
+	'bold': 700,
+	'extraBold': 800,
 );
-
 
 // Mixins
 @mixin flexCenter($direction: initial) {
@@ -35,38 +34,33 @@ $font-weights: (
 		@media only screen and (min-width: 576px) {
 			@content;
 		}
-	}
-	@else if $point == md {
+	} @else if $point == md {
 		@media only screen and (min-width: 768px) {
 			@content;
 		}
-	}
-	@else if $point == lg {
+	} @else if $point == lg {
 		@media only screen and (min-width: 992px) {
 			@content;
 		}
-	}
-	@else if $point == xl {
+	} @else if $point == xl {
 		@media only screen and (min-width: 1200px) {
 			@content;
 		}
-	}
-	@else if $point == xxl {
+	} @else if $point == xxl {
 		@media only screen and (min-width: 1400px) {
 			@content;
 		}
 	}
 }
 
-
 // Functions
 @function fw($weight) {
 	@return map-get($font-weights, $weight);
 }
 
-
 // push footer to the bottom of the page
-html, body {
+html,
+body {
 	color: $text-color;
 	display: flex;
 	flex-direction: column;
@@ -74,7 +68,12 @@ html, body {
 	height: 100%;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-family: 'Work Sans', sans-serif;
 	font-weight: fw(semiBold);
 }
@@ -162,9 +161,9 @@ hr {
 }
 
 // input group corners
-.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n+3),
-.input-group:not(.has-validation) >
-:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+.input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3),
+.input-group:not(.has-validation)
+	> :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
 	border-bottom-left-radius: $corners;
 	border-top-left-radius: $corners;
 }
@@ -174,14 +173,13 @@ hr {
 }
 
 .bg-white {
-	background: #FFFFFF;
+	background: #ffffff;
 }
 
 .starability-basic {
 	min-height: initial !important;
 	user-select: none;
 }
-
 
 /* ========= NAVIGATION ========= */
 
@@ -214,7 +212,6 @@ hr {
 	}
 }
 
-
 /* ============ HERO ============ */
 
 .hero {
@@ -232,7 +229,8 @@ hr {
 	}
 
 	&--image {
-		background: linear-gradient(#0004, #0004), center / cover no-repeat url('/img/home-cover.jpg');
+		background: linear-gradient(#0004, #0004),
+			center / cover no-repeat url('/img/home-cover.jpg');
 	}
 
 	&--cluster-map {
@@ -249,7 +247,7 @@ hr {
 	}
 
 	&__stats {
-		background: #FFFFFF;
+		background: #ffffff;
 		bottom: calc(-140px / 2);
 		display: none;
 		height: 140px;
@@ -291,7 +289,6 @@ hr {
 	}
 }
 
-
 /* ============ HOME ============ */
 
 .navbar-home {
@@ -302,7 +299,7 @@ hr {
 
 .hero__scroll {
 	display: none;
-  width: 300px;
+	width: 300px;
 	position: relative;
 	top: 20vh;
 
@@ -313,7 +310,7 @@ hr {
 	#{&}-mouse {
 		width: 40px;
 		height: 70px;
-		border: 2px solid #FFF3;
+		border: 2px solid #fff3;
 		border-radius: 40px;
 		position: absolute;
 		&::before {
@@ -324,7 +321,7 @@ hr {
 			top: 10px;
 			left: 50%;
 			transform: translateX(-50%);
-			background-color: #FFF3;
+			background-color: #fff3;
 			border-radius: 50%;
 			opacity: 1;
 			animation: wheel 2s infinite;
@@ -365,9 +362,10 @@ hr {
 			padding: 5rem 5rem 10rem;
 		}
 
-		p, li {
+		p,
+		li {
 			font-size: 1.2rem;
-			margin-bottom: .6em;
+			margin-bottom: 0.6em;
 
 			@include breakpoint(md) {
 				font-size: 1rem;
@@ -380,7 +378,7 @@ hr {
 		font-size: 3.5rem;
 		font-weight: fw(extraBold);
 		margin-top: 3rem;
-		opacity: .1;
+		opacity: 0.1;
 		position: relative;
 		user-select: none;
 		word-wrap: normal;
@@ -407,7 +405,7 @@ hr {
 		color: $text-dark;
 
 		.main__heading {
-			opacity: .3;
+			opacity: 0.3;
 		}
 	}
 
@@ -416,7 +414,8 @@ hr {
 	}
 
 	#{&}__about {
-		background: linear-gradient(#00000080, #00000080), top/cover no-repeat url("/img/about.jpg");
+		background: linear-gradient(#00000080, #00000080),
+			top/cover no-repeat url('/img/about.jpg');
 
 		@include breakpoint(xl) {
 			width: 80%;
@@ -444,9 +443,9 @@ hr {
 	}
 
 	&__results {
-		background: #FFF;
+		background: #fff;
 		border-radius: $corners;
-		max-height: calc((150px * 2) + .5rem + 2rem);
+		max-height: calc((150px * 2) + 0.5rem + 2rem);
 		overflow: auto;
 		position: absolute;
 		width: 100%;
@@ -468,7 +467,6 @@ hr {
 		text-overflow: ellipsis;
 	}
 }
-
 
 /* ========= CAMPGROUNDS ======== */
 
@@ -502,10 +500,10 @@ hr {
 
 		@include breakpoint(lg) {
 			width: calc(50% - 20px);
-			-webkit-transition: box-shadow .1s ease-in;
-				 -moz-transition: box-shadow .1s ease-in;
-					 -o-transition: box-shadow .1s ease-in;
-							transition: box-shadow .1s ease-in;
+			-webkit-transition: box-shadow 0.1s ease-in;
+			-moz-transition: box-shadow 0.1s ease-in;
+			-o-transition: box-shadow 0.1s ease-in;
+			transition: box-shadow 0.1s ease-in;
 
 			.card-body {
 				padding: 2rem;
@@ -517,6 +515,9 @@ hr {
 		}
 
 		.card-text {
+			text-overflow: ellipsis;
+			overflow: hidden;
+			max-height: 4.6em;
 			margin-bottom: 20px;
 		}
 
@@ -554,8 +555,9 @@ hr {
 .add-camp {
 	@include flexCenter(column);
 
-	background: linear-gradient(#0000004d, #0000004d), center/cover no-repeat url("/img/add-camp.jpg");
-	color: #FFFFFF;
+	background: linear-gradient(#0000004d, #0000004d),
+		center/cover no-repeat url('/img/add-camp.jpg');
+	color: #ffffff;
 	margin-top: $section-spacing;
 	min-height: 75vh;
 
@@ -572,7 +574,8 @@ hr {
 	}
 
 	&__gallery {
-		.carousel, img {
+		.carousel,
+		img {
 			overflow: hidden;
 
 			@include breakpoint(lg) {
@@ -601,7 +604,8 @@ hr {
 		font-size: 1.25rem;
 	}
 
-	&__rating *, &__edit-btns > * {
+	&__rating *,
+	&__edit-btns > * {
 		display: inline-block;
 	}
 
@@ -642,7 +646,8 @@ hr {
 /* =========== REVIEWS ========== */
 
 .reviews {
-	&__user > *, &__rating > * {
+	&__user > *,
+	&__rating > * {
 		display: inline-block;
 	}
 
@@ -653,7 +658,7 @@ hr {
 	&__user-img {
 		background: $accent;
 		border-radius: 50%;
-		color: #FFFFFF;
+		color: #ffffff;
 		font-size: 1.2em;
 		height: 50px;
 		line-height: 50px;
@@ -662,7 +667,7 @@ hr {
 	}
 
 	&__rating p {
-		font-size: .8em;
+		font-size: 0.8em;
 	}
 
 	&__review .btn-close {
@@ -670,7 +675,6 @@ hr {
 		right: 1em;
 	}
 }
-
 
 /* =========== FOOTER =========== */
 
@@ -686,7 +690,7 @@ hr {
 		}
 
 		h5 {
-			margin-bottom: .5em;
+			margin-bottom: 0.5em;
 		}
 
 		a {
