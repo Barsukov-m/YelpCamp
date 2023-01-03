@@ -59,6 +59,10 @@ const campgroundSchema = new Schema({
 		max: [1000, 'Campground description must not exceed 1000 characters.'],
 		required: true
 	},
+	date: {
+		type: Date,
+		required: true
+	},
 	rating: {
 		type: Number,
 		default: 0

@@ -24,6 +24,8 @@ const campgroundSchema = Joi.object({
 		.max(1000)
 		.required()
 		.escapeHTML(),
+	date: Joi.string()
+		.required(),
 });
 
 

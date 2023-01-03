@@ -4,7 +4,7 @@ const cities = require('./citiesDB');
 const titles = require('./titlesDB');
 
 
-mongoose.connect('...')
+mongoose.connect('mongodb://127.0.0.1:27017/yelpCamp')
 	.then(() => console.log('Mongoose connection open'))
 	.catch(err => console.log(err))
 
@@ -129,8 +129,9 @@ const addSeeds = async () => {
 					filename: i.src.split('v1659046559')[1]
 				}
 			],
-			author: '62e7292242d560f42c140f18',
-			description: i.attr
+			author: '63a8341e71fac3d4da68a7fc',
+			description: i.attr,
+			date: new Date()
 		});
 
 		await camp.save()

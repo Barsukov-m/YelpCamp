@@ -3,6 +3,7 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const accessToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken });
 const Campground = require('../models/campground');  // Campground model
+const { calculatePostTime } = require('../utils/utilities');
 
 
 const newForm = (req, res) => {
@@ -81,7 +82,8 @@ const showOne = async (req, res) => {
 		req.flash('error', 'Campground with this ID was not found.');
 		res.redirect('/');
 	} else {
-		res.render('campgrounds/show', { camp });
+		const postTime = calculatePostTime(camp.date);
+		res.render('campgrounds/show', { camp, postTime });
 	}
 }
 

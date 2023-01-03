@@ -102,6 +102,46 @@ const verifyReviewAuthor = async (req, res, next) => {
 	next();
 }
 
+const calculatePostTime = (date) => {
+	const seconds = {
+		minute: 60,
+		hour: 3600,
+		day: 86400,
+		week: 604800,
+		month: 2592000,  // 1 month = 30 days
+		year: 31104000
+	};
+
+	let diffSec = Math.floor((Date.now() - date) / 1000);
+	let postTime;
+	console.log('difference in sec:', diffSec);
+	
+	if (diffSec < seconds.minute) {
+		const timeAgo = diffSec;
+		postTime = (`${timeAgo} second${timeAgo > 1 ? 's' : ''} ago`);
+	} else if (diffSec < seconds.hour) {
+		const timeAgo = Math.floor(diffSec / seconds.minute);
+		postTime = (`${timeAgo} minute${timeAgo > 1 ? 's' : ''} ago`);
+	} else if (diffSec < seconds.day) {
+		const timeAgo = Math.floor(diffSec / seconds.hour);
+		postTime = (`${timeAgo} hour${timeAgo > 1 ? 's' : ''} ago`);
+	} else if (diffSec < seconds.week) {
+		const timeAgo = Math.floor(diffSec / seconds.day);
+		postTime = (`${timeAgo} day${timeAgo > 1 ? 's' : ''} ago`);
+	} else if (diffSec < seconds.month) {
+		const timeAgo = Math.floor(diffSec / seconds.week);
+		postTime = (`${timeAgo} week${timeAgo > 1 ? 's' : ''} ago`);
+	} else if (diffSec < seconds.year) {
+		const timeAgo = Math.floor(diffSec / seconds.month);
+		postTime = (`${timeAgo} months${timeAgo > 1 ? 's' : ''} ago`);
+	} else {
+		const timeAgo = Math.floor(diffSec / seconds.year);
+		postTime = (`${timeAgo} years${timeAgo > 1 ? 's' : ''} ago`);
+	}
+
+	return postTime;
+}
+
 
 module.exports = {
 	catchAsync,
@@ -113,4 +153,5 @@ module.exports = {
 	checkRedirect,
 	verifyCampAuthor,
 	verifyReviewAuthor,
+	calculatePostTime,
 };

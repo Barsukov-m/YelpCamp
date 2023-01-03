@@ -83,7 +83,7 @@
 					<a class="ms-2 mt-1" href="#reviews"><%= camp.reviews.length %> Review<%= (camp.reviews.length != 1) ? 's' : '' %></a>
 				</div>
 
-				<p class="camp__author">Submitted by <%= camp.author.name %> <span>2 days ago</span></p>
+				<p class="camp__author">Submitted by <%= camp.author.name %> <span><%= postTime %></span></p>
 
 				<% if (currentUser && camp.author.equals(currentUser)) { %>
 				<div class="camp__edit-btns mt-4">
