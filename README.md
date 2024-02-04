@@ -30,10 +30,10 @@ YelpCamp is the campground database created to connect people around the world.
 - [x] Fix the timestamps on reviews & camps
 - [ ] Image thumbnails
 - [ ] Change the campground slug so it show an actual campground title
+- [ ] Re-write in React and RTK
+- [ ] Move the project to GitLab and set-up auto-deployment
 - [ ] Night mode
 - [ ] Ukrainian translation
-- [ ] Rewrite the app using React and Redux
 - [ ] Add pagination to the campgrounds list
-- [ ] Send me an email whenever a user submits a new campground
-- [ ] Remove Bootstrap and style YelpCamp from scratch
-- [ ] Deploy on Firebase instead of Render
+- [ ] Send an email when user submits a new campground
+- [ ] Think of an alternative deployment platforms to increase performance
